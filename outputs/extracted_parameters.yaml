@@ -1,0 +1,63 @@
+parameters:
+- name: cache_capacity
+  description: The total storage capacity of a cache.
+  param_type: integer
+  constraints: []
+  implementation_defined: true
+  source_quote: The capacity and organization of a cache and the size of a cache block
+    are both implementation-specific...
+  rationale: Explicitly mentioned as 'capacity of a cache' and 'implementation-specific'.
+- name: cache_organization
+  description: The structural organization of a cache (e.g., direct-mapped, set-associative).
+  param_type: string
+  constraints: []
+  implementation_defined: true
+  source_quote: The capacity and organization of a cache and the size of a cache block
+    are both implementation-specific...
+  rationale: Explicitly mentioned as 'organization of a cache' and 'implementation-specific'.
+- name: cache_block_size
+  description: The size of a contiguous block of memory locations represented by a
+    cache block.
+  param_type: integer
+  constraints:
+  - rule: Must be a power-of-two (NAPOT) value
+    is_hard_constraint: true
+  implementation_defined: true
+  source_quote: Caches organize copies of data into cache blocks, each of which represents
+    a contiguous, naturally aligned power-of-two (or NAPOT) range of memory locations.
+    The capacity and organization of a cache and the size of a cache block are both
+    implementation-specific...
+  rationale: Explicitly mentioned as 'size of a cache block' and 'implementation-specific',
+    with an implicit constraint derived from the 'NAPOT' description.
+- name: csr_address_width
+  description: The width of the encoding space for Control and Status Register (CSR)
+    addresses.
+  param_type: integer
+  constraints:
+  - rule: Must be 12 bits.
+    is_hard_constraint: true
+  implementation_defined: false
+  source_quote: The standard RISC-V ISA sets aside a 12-bit encoding space (csr[11:0])
+  rationale: Directly states the bit-width of the CSR address space.
+- name: max_csrs
+  description: The maximum number of Control and Status Registers (CSRs) supported
+    by the RISC-V ISA.
+  param_type: integer
+  constraints:
+  - rule: Must be 4096.
+    is_hard_constraint: true
+  implementation_defined: false
+  source_quote: for up to 4,096 CSRs.
+  rationale: Explicitly states the maximum count of CSRs.
+- name: csr_address_accessibility_encoding_width
+  description: The number of upper bits in the CSR address that are conventionally
+    used to encode read and write accessibility.
+  param_type: integer
+  constraints:
+  - rule: Must be 4 bits.
+    is_hard_constraint: true
+  implementation_defined: false
+  source_quote: the upper 4 bits of the CSR address (csr[11:8]) are used to encode
+    the read and write accessibility
+  rationale: Specifies a fixed-width portion of the CSR address encoding used for
+    accessibility.

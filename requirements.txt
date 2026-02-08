@@ -1,0 +1,6 @@
+dspy-ai
+pydantic
+pydantic-settings
+pyyaml
+google-generativeai
+python-dotenv
