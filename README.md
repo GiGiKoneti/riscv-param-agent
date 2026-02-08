@@ -15,6 +15,14 @@ Extracting hardware parameters from dense ISA manuals is traditionally a manual,
 * **Architectural Constants:** Fixed widths like the `12-bit` CSR address space.
 * **Hard Constraints:** Critical alignment rules like **NAPOT** (Naturally Aligned Power-of-Two).
 
+## 🧩 Project Motto Alignment
+
+This implementation strictly follows the RISC-V Mentorship project mottos:
+* **Classification (Motto 1c):** Parameters are classified into three strict categories: **Named**, **Unnamed**, or **Configuration-dependent**.
+* **Multi-Model Collection (Motto 2):** Data is collected via consensus between **Gemini 2.5 Flash** (Cloud-MoE) and local **Llama 3.1** (Edge-Inference via Ollama).
+* **Refinement Loop (Motto 3):** Discrepancies between model outputs are filtered as "negative examples" to iteratively refine prompts and eliminate hallucinations.
+* **Unique Tagging (Motto 4):** Automatically generates unique, context-aware `tag_names` for unnamed parameters to facilitate automated GitHub PRs into the ISA specifications.
+
 ## 🐧 OS-Aware System Discovery
 
 To ensure real-world utility, the agent is primed with **System Discovery Logic**. It prioritizes parameters required by the Linux kernel and low-level utilities:
@@ -24,7 +32,7 @@ To ensure real-world utility, the agent is primed with **System Discovery Logic*
 
 ## 🛠️ Tech Stack
 
-* **Model:** Gemini 2.5 Flash (Optimized for low-latency technical reasoning)
+* **Model:** Gemini 2.5 Flash (Optimized for low-latency technical reasoning) & Llama 3.1 Ollama (for comparision)
 * **Orchestration:** [DSPy](https://github.com/stanfordnlp/dspy) (Typed Signatures for schema enforcement)
 * **Validation:** [Pydantic](https://docs.pydantic.dev/) (Strict architectural data contracts)
 * **Resilience:** [Tenacity](https://tenacity.readthedocs.io/) (Exponential backoff for API rate-limiting)
@@ -35,6 +43,12 @@ As a student researcher at **DSCE** and a member of **Point Blank**, I built thi
 1.  **Source Grounding:** Mandatory `source_quote` field requires the LLM to provide verbatim proof for every parameter.
 2.  **Chain-of-Thought (CoT):** Forced `rationale` generation ensures linguistic triggers (may, should, optional) are logically parsed before extraction.
 3.  **Deterministic Output:** Temperature is set to `0.0` to ensure architectural fidelity over creative variance.
+
+## Research Focus
+As a student researcher at **DSCE** and a member of **Point Blank**, I tend to build  this tool using advanced modular cognitive architectures:
+1.  **Recursive Language Models (RLMs):** Utilizing recursive extraction loops to prevent "context rot" during dense ISA parsing.
+2.  **Neural-Symbolic Verification:** Forced `rationale` and `source_quote` fields ensure every extraction is grounded in verbatim text.
+3.  **GraphRAG Dependency Mapping:** Navigation of CSR hierarchies to ensure stable naming conventions across disparate spec snippets.
 
 ## 📦 Installation
 
