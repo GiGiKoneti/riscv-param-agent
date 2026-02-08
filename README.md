@@ -15,6 +15,13 @@ Extracting hardware parameters from dense ISA manuals is traditionally a manual,
 * **Architectural Constants:** Fixed widths like the `12-bit` CSR address space.
 * **Hard Constraints:** Critical alignment rules like **NAPOT** (Naturally Aligned Power-of-Two).
 
+## 🐧 OS-Aware System Discovery
+
+To ensure real-world utility, the agent is primed with **System Discovery Logic**. It prioritizes parameters required by the Linux kernel and low-level utilities:
+* **Topology & Caches:** Mapping ISA descriptions to fields expected by `lscpu`.
+* **Hardware Abstraction:** Extracting metadata necessary for `dmidecode` and Device Tree (DT) generation.
+* **Feature Flags:** Identifying ISA extensions required for `/proc/cpuinfo` flags.
+
 ## 🛠️ Tech Stack
 
 * **Model:** Gemini 2.5 Flash (Optimized for low-latency technical reasoning)
