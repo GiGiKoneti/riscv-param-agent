@@ -8,7 +8,13 @@ class ParameterType(str, Enum):
     STRING = "string"
     RANGE = "range"
     ENUM = "enum"
-    BITS = "bits"  # Added for CSR address widths
+    BITS = "bits"
+
+class ParameterCategory(str, Enum):
+    """Motto 1(c): Classification of parameters"""
+    NAMED = "named"
+    UNNAMED = "unnamed"
+    CONFIG_DEPENDENT = "configuration-dependent"
 
 class Constraint(BaseModel):
     rule: str = Field(..., description="The architectural rule (e.g., 'Must be NAPOT')")
@@ -16,12 +22,14 @@ class Constraint(BaseModel):
 
 class RISCVParameter(BaseModel):
     name: str = Field(..., description="Unique snake_case identifier (e.g., cache_block_size)")
+    tag_name: str = Field(..., description="Motto 4: Unique tag name for spec insertion (e.g., {TAG_NAME})")
     description: str = Field(..., description="High-level architectural purpose")
     param_type: ParameterType = Field(..., description="Data type of the parameter")
+    classification: ParameterCategory = Field(..., description="Classification per project motto 1(c)")
     constraints: List[Constraint] = Field(default_factory=list)
     implementation_defined: bool = Field(True, description="True if text says 'implementation-specific'")
     source_quote: str = Field(..., description="Verbatim text from the ISA manual for verification")
-    rationale: str = Field(..., description="Internal reasoning for why this is a parameter")
+    rationale: str = Field(..., description="Internal reasoning for classification and extraction")
 
 class ParameterExtraction(BaseModel):
     parameters: List[RISCVParameter]
