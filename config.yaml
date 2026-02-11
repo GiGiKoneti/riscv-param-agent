@@ -1,0 +1,42 @@
+# RISC-V Parameter Extractor Configuration
+
+# Model Configuration
+models:
+  primary: "gemini/gemini-2.5-flash"
+  secondary: "ollama_chat/llama3.1"
+  temperature: 0.0
+  max_tokens: 4000
+  retry_attempts: 5
+  retry_delay: 5
+
+# Extraction Settings
+extraction:
+  chunk_size: 3000
+  overlap: 200
+  num_examples: 12
+  balanced_examples: true
+
+# Validation Settings
+validation:
+  similarity_threshold: 0.85
+  enable_hallucination_detection: false
+  enable_tag_generation: false
+
+# Output Settings
+output:
+  default_path: "outputs/extracted_parameters.yaml"
+  comparison_path: "outputs/model_comparison.yaml"
+  validation_path: "outputs/validation_report.yaml"
+  format: "yaml" # yaml or json
+
+# Logging Settings
+logging:
+  level: "INFO" # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "rich" # rich or standard
+  file: null # Optional log file path
+
+# Paths
+paths:
+  udb_examples: "data/udb_examples.yaml"
+  specs_dir: "specs/"
+  outputs_dir: "outputs/"

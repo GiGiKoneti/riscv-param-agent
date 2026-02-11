@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import List, Optional
+from typing import List, Optional, Dict
 from enum import Enum
 
 class ParameterType(str, Enum):
@@ -22,14 +22,15 @@ class Constraint(BaseModel):
 
 class RISCVParameter(BaseModel):
     name: str = Field(..., description="Unique snake_case identifier (e.g., cache_block_size)")
-    tag_name: str = Field(..., description="Motto 4: Unique tag name for spec insertion (e.g., {TAG_NAME})")
+    tag_name: str = Field(default="", description="Motto 4: Unique tag name for spec insertion (e.g., {TAG_NAME})")
     description: str = Field(..., description="High-level architectural purpose")
     param_type: ParameterType = Field(..., description="Data type of the parameter")
-    classification: ParameterCategory = Field(..., description="Classification per project motto 1(c)")
+    classification: ParameterCategory = Field(default=ParameterCategory.UNNAMED, description="Classification per project motto 1(c)")
     constraints: List[Constraint] = Field(default_factory=list)
     implementation_defined: bool = Field(True, description="True if text says 'implementation-specific'")
     source_quote: str = Field(..., description="Verbatim text from the ISA manual for verification")
     rationale: str = Field(..., description="Internal reasoning for classification and extraction")
+    extraction_metadata: Dict = Field(default_factory=dict, description="Metadata about extraction (confidence, models used, etc.)")
 
 class ParameterExtraction(BaseModel):
     parameters: List[RISCVParameter]

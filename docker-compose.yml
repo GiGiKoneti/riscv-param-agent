@@ -1,0 +1,35 @@
+# Docker Compose for RISC-V Parameter Extractor
+
+version: '3.8'
+
+services:
+  extractor:
+    build: .
+    image: riscv-param-extractor:latest
+    container_name: riscv-extractor
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    volumes:
+      - ./specs:/app/specs:ro
+      - ./outputs:/app/outputs
+      - ./data:/app/data:ro
+      - ./config.yaml:/app/config.yaml:ro
+    command: >
+      python -m src.main
+      --spec-path /app/specs/riscv-privileged.md
+      --chapter 3
+      --output /app/outputs/extracted_parameters.yaml
+    restart: "no"
+
+  # Optional: Ollama service for multi-model extraction
+  ollama:
+    image: ollama/ollama:latest
+    container_name: riscv-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+
+volumes:
+  ollama_data:

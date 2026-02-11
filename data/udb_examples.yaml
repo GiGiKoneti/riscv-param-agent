@@ -1,0 +1,128 @@
+# UDB Example Parameters for Few-Shot Prompting
+# Curated examples from the RISC-V Unified Database
+
+examples:
+  # NAMED Parameters
+  - name: mstatus.MIE
+    description: Machine Interrupt Enable bit in mstatus CSR
+    param_type: bits
+    classification: named
+    implementation_defined: false
+    source_quote: "The MIE bit in mstatus is a global interrupt-enable bit for machine mode."
+    constraints:
+      - rule: "Single bit field at position 3"
+        is_hard_constraint: true
+  
+  - name: marchid
+    description: Machine Architecture ID register
+    param_type: integer
+    classification: named
+    implementation_defined: true
+    source_quote: "The marchid CSR is a MXLEN-bit read-only register encoding the base microarchitecture of the hart."
+    constraints:
+      - rule: "MXLEN-bit width"
+        is_hard_constraint: true
+  
+  - name: mtvec
+    description: Machine Trap-Vector Base-Address Register
+    param_type: integer
+    classification: named
+    implementation_defined: false
+    source_quote: "The mtvec register is an MXLEN-bit read/write register that holds trap vector configuration."
+    constraints:
+      - rule: "Must be aligned based on MODE field"
+        is_hard_constraint: true
+  
+  - name: ASID_WIDTH
+    description: Address Space Identifier width
+    param_type: integer
+    classification: named
+    implementation_defined: true
+    source_quote: "The number of ASID bits is ASIDLEN, which may be zero."
+    constraints:
+      - rule: "Implementation-specific, typically 0, 9, or 16"
+        is_hard_constraint: false
+
+  # CONFIGURATION-DEPENDENT Parameters
+  - name: VLEN
+    description: Vector register length in bits
+    param_type: integer
+    classification: configuration-dependent
+    implementation_defined: true
+    source_quote: "VLEN is the number of bits in a single vector register."
+    constraints:
+      - rule: "Must be a power of 2"
+        is_hard_constraint: true
+      - rule: "Minimum value is 128"
+        is_hard_constraint: true
+  
+  - name: MXLEN
+    description: Machine mode XLEN (register width)
+    param_type: integer
+    classification: configuration-dependent
+    implementation_defined: true
+    source_quote: "MXLEN is the width of an integer register in bits in M-mode."
+    constraints:
+      - rule: "Must be 32, 64, or 128"
+        is_hard_constraint: true
+  
+  - name: PHYS_ADDR_WIDTH
+    description: Physical address width in bits
+    param_type: integer
+    classification: configuration-dependent
+    implementation_defined: true
+    source_quote: "The physical address width is implementation-defined."
+    constraints:
+      - rule: "Typically 32, 34, or 56 bits"
+        is_hard_constraint: false
+  
+  - name: PMP_ENTRIES
+    description: Number of PMP (Physical Memory Protection) entries
+    param_type: integer
+    classification: configuration-dependent
+    implementation_defined: true
+    source_quote: "Implementations may implement zero, 16, or 64 PMP entries."
+    constraints:
+      - rule: "Must be 0, 16, or 64"
+        is_hard_constraint: true
+
+  # UNNAMED Parameters
+  - name: cache_block_size
+    description: Size of a cache block in bytes
+    param_type: integer
+    classification: unnamed
+    implementation_defined: true
+    source_quote: "The size of a cache block are both implementation-specific."
+    constraints:
+      - rule: "Must be a power-of-two (NAPOT)"
+        is_hard_constraint: true
+  
+  - name: reset_pc_value
+    description: Initial value of the program counter after reset
+    param_type: integer
+    classification: unnamed
+    implementation_defined: true
+    source_quote: "The pc register holds the address of the current instruction. On reset, pc is set to an implementation-defined reset vector."
+    constraints:
+      - rule: "Implementation-defined reset vector"
+        is_hard_constraint: false
+  
+  - name: trap_delegation_support
+    description: Whether trap delegation to lower privilege modes is supported
+    param_type: boolean
+    classification: unnamed
+    implementation_defined: true
+    source_quote: "Traps may be selectively delegated to lower privilege levels."
+    constraints:
+      - rule: "Optional feature"
+        is_hard_constraint: false
+  
+  - name: csr_address_width
+    description: Width of CSR address encoding space
+    param_type: integer
+    classification: unnamed
+    implementation_defined: false
+    source_quote: "The standard RISC-V ISA sets aside a 12-bit encoding space (csr[11:0]) for up to 4,096 CSRs."
+    constraints:
+      - rule: "Must be 12 bits"
+        is_hard_constraint: true

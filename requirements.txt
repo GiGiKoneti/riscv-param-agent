@@ -4,3 +4,7 @@ pydantic-settings
 pyyaml
 google-generativeai
 python-dotenv
+tenacity
+markdown
+beautifulsoup4
+rich
